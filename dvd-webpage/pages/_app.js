@@ -1,5 +1,6 @@
 import Head from "next/head";
 import "../styles/main.css";
+import {useEffect} from 'react';
 
 function MyApp({ Component, pageProps }) {
 	useEffect(() => {
