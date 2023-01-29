@@ -5,6 +5,7 @@ import {useEffect} from 'react';
 function MyApp({ Component, pageProps }) {
 	useEffect(() => {
 		let song = new Audio("/public/audio/ededdeddy.mp3");
+		song.muted = true;
 		song.play();
 	})
   return (
