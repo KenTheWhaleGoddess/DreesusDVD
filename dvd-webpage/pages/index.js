@@ -118,7 +118,7 @@ export default function Home() {
           </button>
         </div>
         <audio controls autoPlay>
-          <source src="/public/audio/ededdeddy.mp3" type="audio/mp3"/>
+          <source src="/public/audio/ededdeddy.mp3" type="audio/mpeg"/>
         </audio>
       </div>
 
