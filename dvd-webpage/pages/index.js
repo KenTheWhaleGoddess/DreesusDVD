@@ -14,7 +14,7 @@ export default function Home() {
   let audio = new Audio("https://d38aca3d381g9e.cloudfront.net/ededdeddy.mp3");
   audio.type = "audio/mp3";
   const connectButton = async () => {
-    if (audio.paused || audio.duration == 0) {
+    if (audio.paused) {
       audio.play();
     }
     const web3Modal = new Web3Modal();
