@@ -1,0 +1,40 @@
+{
+  "name": "memaw",
+  "version": "0.1.0",
+  "private": true,
+  "scripts": {
+    "dev": "next dev",
+    "build": "next build",
+    "start": "next start",
+    "export": "next export",
+    "lint": "next lint"
+  },
+  "dependencies": {
+    "@openzeppelin/contracts": "^4.3.2",
+    "axios": "^0.27.2",
+    "bootstrap": "^5.2.0",
+    "dotenv": "^10.0.0",
+    "ethers": "^5.4.7",
+    "hardhat-gas-reporter": "^1.0.4",
+    "keccak256": "^1.0.6",
+    "merkletreejs": "^0.2.32",
+    "next": "^12.2.4",
+    "react": "^18.2.0",
+    "react-countdown": "^2.3.2",
+    "react-dom": "^18.2.0",
+    "react-social-icons": "^5.14.0",
+    "sharp": "^0.30.7",
+    "web3modal": "^1.9.8"
+  },
+  "devDependencies": {
+    "@nomiclabs/hardhat-ethers": "^2.0.2",
+    "@nomiclabs/hardhat-etherscan": "^2.1.6",
+    "@nomiclabs/hardhat-waffle": "^2.0.1",
+    "chai": "^4.3.4",
+    "eslint": "7.32.0",
+    "eslint-config-next": "11.1.2",
+    "ethereum-waffle": "^3.4.0",
+    "hardhat": "^2.6.4",
+    "prettier": "^2.4.1"
+  }
+}

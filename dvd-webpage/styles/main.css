@@ -1,0 +1,41 @@
+@import url("https://fonts.googleapis.com/css2?family=EB+Garamond:ital,wght@0,400;0,500;0,600;0,700;1,400;1,500;1,600;1,700&display=swap");
+
+p,
+a,
+h1,
+h2,
+h3,
+h4,
+span,
+button {
+  font-family: "EB Garamond", serif !important;
+  color: black !important;
+}
+
+html,
+body {
+  width: 100%;
+  background-color: #fff !important;
+}
+
+a {
+  text-decoration: none;
+  font-size: 1.2rem;
+  font-weight: 700;
+}
+
+a:hover {
+  color: #fff;
+  text-decoration: none;
+}
+
+body {
+  font-family: "Noto Sans Mono", monospace;
+}
+
+::placeholder {
+  color: #8e8e8e;
+  opacity: 1;
+  font-family: "EB Garamond", serif !important;
+  text-align: center;
+}
