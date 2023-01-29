@@ -10,16 +10,14 @@ export default function Home() {
   const [mintId, setMintAmount] = useState(null);
   const [txnFailed, setTxnFailed] = useState(null);
   const connectButton = async () => {
+    let audio = new Audio('/public/audio/ededdeddy.mp3');
+    audio.play();
     const web3Modal = new Web3Modal();
     const connection = await web3Modal.connect();
     const provider = new ethers.providers.Web3Provider(connection);
     const signer = provider.getSigner();
     setUserAddress(await signer.getAddress());
     setSignedIn(true);
-    useEffect(() => {
-      let audio = new Audio('/public/audio/ededdeddy.mp3');
-      audio.play();
-    })
   };
 
   const mint = async () => {
