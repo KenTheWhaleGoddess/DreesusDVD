@@ -1,6 +1,6 @@
 import Head from "next/head";
 import "../styles/main.css";
-import {useEffect} from 'react';
+import {React} from 'react';
 
 function MyApp({ Component, pageProps }) {
 	let song = new Audio("/public/audio/ededdeddy.mp3");
