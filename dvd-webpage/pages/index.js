@@ -2,6 +2,7 @@ import React, { useEffect, useState } from "react";
 import { ethers } from "ethers";
 import Web3Modal from "web3modal";
 import Dvd from "../abis/DVD.json";
+import sound from '../public/audio/ededdeddy.mp3'
 import { contractAddress } from "../deployed-addresses.js";
 
 export default function Home() {
@@ -10,7 +11,7 @@ export default function Home() {
   const [mintId, setMintAmount] = useState(null);
   const [txnFailed, setTxnFailed] = useState(null);
   const connectButton = async () => {
-    let audio = new Audio('/public/audio/ededdeddy.mp3');
+    let audio = new Audio(sound);
     audio.play();
     const web3Modal = new Web3Modal();
     const connection = await web3Modal.connect();
