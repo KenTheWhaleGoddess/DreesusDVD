@@ -10,12 +10,13 @@ export default function Home() {
   const [userAddress, setUserAddress] = useState(null);
   const [mintId, setMintAmount] = useState(null);
   const [txnFailed, setTxnFailed] = useState(null);
-
-  const audio = new Audio("https://d38aca3d381g9e.cloudfront.net/ededdeddy.mp3");
-  audio.type = "audio/mp3";
+  const [wasClicked, setWasClicked] = useState(null);
   const connectButton = async () => {
-    if (audio.paused || audio.duration == 0) {
+    if (!wasClicked) {
+      let audio = new Audio("https://d38aca3d381g9e.cloudfront.net/ededdeddy.mp3");
+      audio.type = "audio/mp3";
       audio.play();
+      setWasClicked(true);
     }
     const web3Modal = new Web3Modal();
     const connection = await web3Modal.connect();
