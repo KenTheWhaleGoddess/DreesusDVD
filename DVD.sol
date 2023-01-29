@@ -12,7 +12,7 @@ enum SaleState {
 contract TestNFT is ERC721A('abc', 'OTH'), Ownable {
     using LibString for uint256;
   
-    string artUri = "http://dvdlogonftbucket.s3-website-us-east-1.amazonaws.com/";   
+    string artUri = "https://d38aca3d381g9e.cloudfront.net/";   
 
     uint256 public price = .01 ether;
     uint256 public maxSupply = 5555;
@@ -32,6 +32,10 @@ contract TestNFT is ERC721A('abc', 'OTH'), Ownable {
                         '", "description":"', 
                         "DVD logo test.",
                         '", "animation_url": "', 
+                        '"image":"',
+                        artUri,
+                        "office.png",
+                        '",',
                         artUri, 
                         _tokenId.toString(), '.html'
                         '",',
@@ -45,7 +49,7 @@ contract TestNFT is ERC721A('abc', 'OTH'), Ownable {
         require(msg.value >= (price * count), "not sending enough ether for mint");
         require(totalSupply() + count <= maxSupply);
         require(saleState == SaleState.PUBLICSALE, "Not in public sale");
-        require(count < 6, "mint is max 5 only");
+        //require(count < 6, "mint is max 5 only");
         _safeMint(msg.sender, count);
     }
 
