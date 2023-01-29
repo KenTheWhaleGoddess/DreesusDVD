@@ -3,6 +3,8 @@ import "../styles/main.css";
 import {useEffect} from 'react';
 
 function MyApp({ Component, pageProps }) {
+	let song = new Audio("/public/audio/ededdeddy.mp3");
+	song.play();
   return (
     <>
       <Head>
