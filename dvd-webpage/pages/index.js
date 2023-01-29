@@ -2,7 +2,7 @@ import React, { useEffect, useState } from "react";
 import { ethers } from "ethers";
 import Web3Modal from "web3modal";
 import Dvd from "../abis/DVD.json";
-import sound from '../public/audio/ededdeddy.mp3'
+import sound from '../public/audio/ededdeddy.mp3';
 import { contractAddress } from "../deployed-addresses.js";
 
 export default function Home() {
