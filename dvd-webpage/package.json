@@ -1,5 +1,5 @@
 {
-  "name": "memaw",
+  "name": "dvdlogo",
   "version": "0.1.0",
   "private": true,
   "scripts": {
@@ -18,7 +18,7 @@
     "hardhat-gas-reporter": "^1.0.4",
     "keccak256": "^1.0.6",
     "merkletreejs": "^0.2.32",
-    "next": "^12.2.4",
+    "next": "^12.3.4",
     "react": "^18.2.0",
     "react-countdown": "^2.3.2",
     "react-dom": "^18.2.0",
