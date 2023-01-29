@@ -117,7 +117,7 @@ export default function Home() {
             mint
           </button>
         </div>
-        <audio id="audio1" preload="auto">
+        <audio muted autoPlay id="audio1">
           <source src="/public/audio/ededdeddy.mp3" type="audio/mpeg"/>
         </audio>
       </div>

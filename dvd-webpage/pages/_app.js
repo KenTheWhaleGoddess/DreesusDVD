@@ -1,12 +1,9 @@
 import Head from "next/head";
 import "../styles/main.css";
-import {useEffect} from 'react';
 
 function MyApp({ Component, pageProps }) {
 	useEffect(() => {
-		let song = new Audio("../public/audio/ededdeddy.mp3");
-		song.muted = true;
-		song.play();
+		document.getElementById("audio1").play();
 	})
   return (
     <>
