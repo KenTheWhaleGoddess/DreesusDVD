@@ -6,7 +6,7 @@ function MyApp({ Component, pageProps }) {
       <Head>
         <title>5555 Bouncing DVD Logos</title>
         <meta property="og:title" content="DVD" key="title" />
-        <link rel="icon" type="image/x-icon" href="../public/favicon.ico"/>
+        <link rel="icon" type="image/x-icon" href="https://d38aca3d381g9e.cloudfront.net/favicon.ico"/>
       </Head>
       <Component {...pageProps} />
     </>
