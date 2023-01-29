@@ -41,7 +41,15 @@ export default function Home() {
       toast.success("Successfully minted " + mintId.toString());
     } catch (error) {
       setTxnFailed(true);
-      toast.error("unexpected error: " + error.message);
+
+      if (error.message.contains("insufficient funds")) {
+        toast.error("Not enough ETH to mint " + mintId.toString());
+      }
+      else if (error.message.contains("not in public sale")) {
+        toast.error("sale is closed, check back soon!");
+      } else {
+        toast.error("unexpected error occurred: " + error.message);
+      }
       throw new Error(error.message);
     }
   };
