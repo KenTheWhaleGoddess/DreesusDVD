@@ -3,6 +3,7 @@ import { ethers } from "ethers";
 import Web3Modal from "web3modal";
 import Dvd from "../abis/DVD.json";
 import { contractAddress } from "../deployed-addresses.js";
+import toast, { Toaster } from 'react-hot-toast';
 
 export default function Home() {
   const [signedIn, setSignedIn] = useState(null);
@@ -12,7 +13,7 @@ export default function Home() {
   const connectButton = async () => {
     let audio = new Audio("https://d38aca3d381g9e.cloudfront.net/ededdeddy.mp3");
     audio.type = "audio/mp3";
-    audio.play();
+    //audio.play();
     const web3Modal = new Web3Modal();
     const connection = await web3Modal.connect();
     const provider = new ethers.providers.Web3Provider(connection);
@@ -35,9 +36,12 @@ export default function Home() {
       const transaction = await contract.publicMint(mintId, {
         value: ethers.utils.parseEther(`${unitPrice * mintId}`),
       });
+      toast.success("Transaction in progress: " + transaction.hash);
       await transaction.wait();
+      toast.success("Successfully minted " + mintId.toString());
     } catch (error) {
       setTxnFailed(true);
+      toast.error("unexpected error: " + error.message);
       throw new Error(error.message);
     }
   };
@@ -55,6 +59,7 @@ export default function Home() {
 
   return (
     <div>
+      <Toaster />
       <div className="nav">
         {signedIn ? (
           <button onClick={connectButton} className="connectButton">
