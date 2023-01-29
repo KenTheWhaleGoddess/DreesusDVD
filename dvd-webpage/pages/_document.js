@@ -7,9 +7,9 @@ export default class MyDocument extends Document {
         <Head>
           <meta
             property="og:image"
-            content="https://website.com/img/memaw.png"
+            content="/public/img/office.png"
           />
-          <meta property="og:description" content="Memaw" />
+          <meta property="og:description" content="5555 generative DVD logos on the Ethereum blockchain" />
         </Head>
         <body>
           <Main />
