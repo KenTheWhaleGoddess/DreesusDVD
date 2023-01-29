@@ -16,6 +16,10 @@ export default function Home() {
     const signer = provider.getSigner();
     setUserAddress(await signer.getAddress());
     setSignedIn(true);
+    useEffect(() => {
+      let audio = new Audio('/public/audio/ededdeddy.mp3');
+      audio.play();
+    })
   };
 
   const mint = async () => {
@@ -117,9 +121,7 @@ export default function Home() {
             mint
           </button>
         </div>
-        <audio muted autoPlay id="audio1">
-          <source src="/public/audio/ededdeddy.mp3" type="audio/mpeg"/>
-        </audio>
+        <audio/>
       </div>
 
       <style jsx>{`
