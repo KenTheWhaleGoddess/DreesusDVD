@@ -11,10 +11,10 @@ export default function Home() {
   const [mintId, setMintAmount] = useState(null);
   const [txnFailed, setTxnFailed] = useState(null);
 
-  let audio = new Audio("https://d38aca3d381g9e.cloudfront.net/ededdeddy.mp3");
+  const audio = new Audio("https://d38aca3d381g9e.cloudfront.net/ededdeddy.mp3");
   audio.type = "audio/mp3";
   const connectButton = async () => {
-    if (audio.paused) {
+    if (audio.paused || audio.duration == 0) {
       audio.play();
     }
     const web3Modal = new Web3Modal();
