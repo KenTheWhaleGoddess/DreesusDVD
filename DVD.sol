@@ -14,8 +14,8 @@ contract TestNFT is ERC721A('abc', 'OTH'), Ownable {
   
     string artUri = "https://d38aca3d381g9e.cloudfront.net/";   
 
-    uint256 public price = .01 ether;
-    uint256 public maxSupply = 5555;
+    uint256 public price = .0025 ether;
+    uint256 public maxSupply = 2525;
 
     mapping(uint256 => bool) hitsCorner;
 
