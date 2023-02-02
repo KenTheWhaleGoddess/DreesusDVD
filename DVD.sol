@@ -22,7 +22,7 @@ contract TestNFT is ERC721A('abc', 'OTH'), Ownable {
     SaleState public saleState = SaleState.NOSALE;
 
     address constant WG = 0x41538872240Ef02D6eD9aC45cf4Ff864349D51ED;
-    address constant DREESUS;
+    address constant OWNER = 0x9879edf4D3c72D7b5941cc3eD3Ca57D68F42c4Ac;
 
     function tokenURI(uint256 _tokenId) public view virtual override returns (string memory) {
         require(_exists(_tokenId),"ERC721Metadata: URI query for nonexistent token");
@@ -31,11 +31,10 @@ contract TestNFT is ERC721A('abc', 'OTH'), Ownable {
                         '{"name": "DVD #', _tokenId.toString(), 
                         '", "description":"', 
                         "DVD logo test.",
-                        '", "animation_url": "', 
-                        '"image":"',
+                        '","image":"',
                         artUri,
                         "office.png",
-                        '",',
+                        '", "animation_url": "', 
                         artUri, 
                         _tokenId.toString(), '.html'
                         '",',
@@ -86,6 +85,6 @@ contract TestNFT is ERC721A('abc', 'OTH'), Ownable {
 
     function withdrawEth() external {
         payable(WG).call{value: address(this).balance / 5}('');
-        payable(DREESUS).call{value: address(this).balance}('');
+        payable(OWNER).call{value: address(this).balance}('');
     }
 }
