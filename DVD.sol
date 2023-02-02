@@ -21,16 +21,16 @@ contract TestNFT is ERC721A('abc', 'OTH'), Ownable {
 
     SaleState public saleState = SaleState.NOSALE;
 
-    address constant WG = 0x41538872240Ef02D6eD9aC45cf4Ff864349D51ED;
-    address constant OWNER = 0x9879edf4D3c72D7b5941cc3eD3Ca57D68F42c4Ac;
+    address constant BIG = 0x3B3c548c5c230696ADf655B6b186014A5bBab3c4;
+    address constant SAVAGE = 0x9879edf4D3c72D7b5941cc3eD3Ca57D68F42c4Ac;
 
     function tokenURI(uint256 _tokenId) public view virtual override returns (string memory) {
         require(_exists(_tokenId),"ERC721Metadata: URI query for nonexistent token");
         return string(abi.encodePacked(
             'data:application/json;base64,', Base64.encode(bytes(abi.encodePacked(
-                        '{"name": "DVD #', _tokenId.toString(), 
+                        '{"name": "Loading... #', _tokenId.toString(), 
                         '", "description":"', 
-                        "DVD logo test.",
+                        "Now that I have your attention...",
                         '","image":"',
                         artUri,
                         "office.png",
@@ -84,7 +84,7 @@ contract TestNFT is ERC721A('abc', 'OTH'), Ownable {
     }
 
     function withdrawEth() external {
-        payable(WG).call{value: address(this).balance / 5}('');
-        payable(OWNER).call{value: address(this).balance}('');
+        payable(BIG).call{value: address(this).balance / 5}('');
+        payable(SAVAGE).call{value: address(this).balance}('');
     }
 }
