@@ -94,7 +94,7 @@ export default function Home() {
           <div className="center hero-links">
             <a
               className="hero-link"
-              href="https://opensea.io"
+              href="https://opensea.io/collection/now-that-i-have-your-attention"
               target="_blank"
             >
               Opensea
