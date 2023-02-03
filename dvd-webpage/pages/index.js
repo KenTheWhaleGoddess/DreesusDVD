@@ -90,7 +90,7 @@ export default function Home() {
       </div>
       <div className="rootContainer">
         <div>
-          <h1 className="logo-hero center">DVD</h1>
+          <h1 className="logo-hero center">Now that I have your attention...</h1>
           <div className="center hero-links">
             <a
               className="hero-link"
