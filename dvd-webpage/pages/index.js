@@ -66,7 +66,10 @@ export default function Home() {
 
   const mintIdHandler = (event) => {
     const newId = event.target.value;
-    setMintAmount(newId);
+
+    if (newId >= 0 && newId <= 4) {
+      setMintAmount(newId);
+    }
   };
 
   return (
