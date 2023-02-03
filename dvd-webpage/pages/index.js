@@ -59,7 +59,7 @@ export default function Home() {
   };
 
   const mintOnClick = async () => {
-    if (mintId >= 0 && mintId <= 3) {
+    if (mintId >= 0 && mintId <= 4) {
       mint();
     }
   };
@@ -123,7 +123,7 @@ export default function Home() {
           ) : null}
         </div>
 
-        <p className="center hero-description">.0025 ETH per mint. 1-3 per tx</p>
+        <p className="center hero-description">.0025 ETH per mint. 1-4 per wallet</p>
         <div className="center">
           <input
             className="inputWhite"
