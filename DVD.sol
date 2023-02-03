@@ -9,7 +9,7 @@ enum SaleState {
     NOSALE, PUBLICSALE
 }
 
-contract TestNFT is ERC721A('abc', 'OTH'), Ownable {
+contract DVDToken is ERC721A('Now that I have your attention...', 'DVD'), Ownable {
     using LibString for uint256;
   
     string artUri = "https://d38aca3d381g9e.cloudfront.net/";   
@@ -17,13 +17,14 @@ contract TestNFT is ERC721A('abc', 'OTH'), Ownable {
     uint256 public price = .0025 ether;
     uint256 public maxSupply = 2525;
 
-    mapping(uint256 => bool) hitsCorner;
-
     SaleState public saleState = SaleState.NOSALE;
 
     address constant BIG = 0x3B3c548c5c230696ADf655B6b186014A5bBab3c4;
     address constant SAVAGE = 0x9879edf4D3c72D7b5941cc3eD3Ca57D68F42c4Ac;
 
+    function _startTokenId() internal view override virtual returns (uint256) {
+        return 1;
+    }
     function tokenURI(uint256 _tokenId) public view virtual override returns (string memory) {
         require(_exists(_tokenId),"ERC721Metadata: URI query for nonexistent token");
         return string(abi.encodePacked(
@@ -40,7 +41,7 @@ contract TestNFT is ERC721A('abc', 'OTH'), Ownable {
                         '",',
                         '"attributes": [{',
                         '"trait_type": "corner", "value": "',
-                        hitsCorner[_tokenId] ? "True" : "False",
+                        "???",
                         '"}]}')))));
     }
 
@@ -75,12 +76,6 @@ contract TestNFT is ERC721A('abc', 'OTH'), Ownable {
 
     function getSaleState() external view returns (uint256) {
         return uint256(saleState);
-    }
-
-    function setCorner(uint256[] memory tokens, bool val) external onlyOwner {
-        for(uint i = 0; i < tokens.length; i++) {
-            hitsCorner[tokens[i]] = val;
-        }
     }
 
     function withdrawEth() external {
