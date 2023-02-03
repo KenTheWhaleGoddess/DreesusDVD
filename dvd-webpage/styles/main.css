@@ -9,13 +9,13 @@ h4,
 span,
 button {
   font-family: "EB Garamond", serif !important;
-  color: black !important;
+  color: white !important;
 }
 
 html,
 body {
   width: 100%;
-  background-color: #fff !important;
+  background-color: black !important;
 }
 
 a {
@@ -33,9 +33,18 @@ body {
   font-family: "Noto Sans Mono", monospace;
 }
 
+
+.center {
+  color: #fff;
+}
 ::placeholder {
   color: #8e8e8e;
   opacity: 1;
   font-family: "EB Garamond", serif !important;
   text-align: center;
+}
+
+.inputWhite { 
+  color: #fff;
+  background-color: black;
 }

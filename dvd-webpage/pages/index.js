@@ -35,7 +35,7 @@ export default function Home() {
     try {
       setTxnFailed(false);
 
-      const unitPrice = 0.01;
+      const unitPrice = 0.0025;
       const contract = new ethers.Contract(contractAddress, Dvd, signer);
       const transaction = await contract.publicMint(mintId, {
         value: ethers.utils.parseEther(`${unitPrice * mintId}`),
@@ -123,10 +123,10 @@ export default function Home() {
           ) : null}
         </div>
 
-        <p className="center hero-description">.01 ETH per mint</p>
+        <p className="center hero-description">.0025 ETH per mint</p>
         <div className="center">
           <input
-            className="mintInput"
+            className="inputWhite"
             placeholder="Amount"
             type="number"
             name="name"
