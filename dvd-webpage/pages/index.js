@@ -115,7 +115,7 @@ export default function Home() {
 
         <div>
           <p className="center hero-description">
-            <img src="/img/office.png" className="hero-img" />
+            <img src="/img/monky.jpg" className="hero-img" />
           </p>
 
           {txnFailed ? (
