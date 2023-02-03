@@ -108,7 +108,7 @@ export default function Home() {
             </a>
             <a
               className="hero-link"
-              href="https://goerli.etherscan.io/address/0x6c721dcb420f167ed3cfc7cec85279a66fec097f"
+              href="https://etherscan.io/address/0x0ff1c3c879e0004b2cdb52c432c8c42305a67f12"
               target="_blank"
             >
               Contract
@@ -126,20 +126,7 @@ export default function Home() {
           ) : null}
         </div>
 
-        <p className="center hero-description">.0025 ETH per mint. 1-4 per wallet</p>
-        <div className="center">
-          <input
-            className="inputWhite"
-            placeholder="Amount"
-            type="number"
-            name="name"
-            value={mintId || 0}
-            onChange={(event) => mintIdHandler(event)}
-          />
-          <button className="mintButton" onClick={mintOnClick}>
-            mint
-          </button>
-        </div>
+        <p className="center hero-description">We minted out! Thank you very much.</p>
       </div>
 
       <style jsx>{`
