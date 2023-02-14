@@ -146,7 +146,7 @@ export default function Home() {
         btn.style.backgroundColor = toggleColors.unselected;
       }
       btn.classList.add('toggleBtn');
-      btn.onclick = (() => toggle(i));
+      btn.onclick = (async () => await toggle(i));
       btn.appendChild(text);
       btns.appendChild(btn);
     }
@@ -165,7 +165,7 @@ export default function Home() {
 
     }
   }
-  const toggle = (btnId) => {
+  const toggle = async (btnId) => {
     const btnName = 'button' + btnId.toString();
     console.log("toggle : " + btnName);
     console.log("toggle : " + selectedToBurn.toString());
