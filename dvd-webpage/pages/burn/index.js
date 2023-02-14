@@ -1,9 +1,9 @@
 import React, { useEffect, useState } from "react";
 import { ethers } from "ethers";
 import Web3Modal from "web3modal";
-import {Dvd} from "../../abis/DVD.json";
-import {DvdBurn} from "../../abis/DVDBurn.json";
-import { originalAddress, burnToRedeemAddress, burnAddress } from "../../deployed-addresses.js";
+import Dvd from "../../abis/DVD.json";
+import DvdBurn from "../../abis/DVDBurn.json";
+import { originalAddress, burnToRedeemAddress } from "../../deployed-addresses.js";
 import toast, { Toaster } from 'react-hot-toast';
 import { Network, Alchemy } from 'alchemy-sdk';
 
@@ -20,7 +20,9 @@ export default function Home() {
 
   const icons = {
     connectionIcon: '⌛',
-    successIcon: '✔️'
+    successIcon: '✔️',
+    alreadyApprovedIcon: '👍',
+    promptApprovalIcon: '✋'
   }
 
   const toggleColors = {
@@ -33,6 +35,8 @@ export default function Home() {
     network: Network.ETH_GOERLI,
   });
   
+  const etherscanBaseUri = "https://goerli.etherscan.io/tx/";
+
   const connectButton = async () => {
     if (!wasClicked) {
       let audio = new Audio("https://d38aca3d381g9e.cloudfront.net/ededdeddy.mp3");
@@ -55,10 +59,6 @@ export default function Home() {
     const keys = Object.keys(alchemyResponse);
     setAllOriginalsHeld(keys);
     console.log(keys);
-
-    const originalContract = new ethers.Contract(originalAddress, Dvd, signer);
-    const approvedResponse = await originalContract.isApperovdForAll(addy, burnToRedeemAddress)
-    setApproved()
     setSignedIn(true);
     
     toast('Connected wallet and got your NFTs!', {
@@ -67,18 +67,16 @@ export default function Home() {
   };
 
   const mint = async () => {
-    const web3Modal = new Web3Modal();
-    const connection = await web3Modal.connect();
-    const provider = new ethers.providers.Web3Provider(connection);
+    const provider = new ethers.providers.Web3Provider(window.ethereum);
     const signer = provider.getSigner();
 
     try {
       setTxnFailed(false);
 
       const contract = new ethers.Contract(burnToRedeemAddress, DvdBurn, signer);
+      toast.success("Prompting mint!");
+
       const transaction = await contract.burnToRedeem(selectedToBurn);
-      toast.success("Transaction in progress: " + transaction.hash);
-      await transaction.wait();
       toast.success("Successfully minted!");
     } catch (error) {
       setTxnFailed(true);
@@ -87,21 +85,31 @@ export default function Home() {
     }
   };
 
-  const setApproval = async () => {
-    const web3Modal = new Web3Modal();
-    const connection = await web3Modal.connect();
-    const provider = new ethers.providers.Web3Provider(connection);
+  const setApprovalBtn = async () => {
+    const provider = new ethers.providers.Web3Provider(window.ethereum);
     const signer = provider.getSigner();
 
     try {
+      console.log(Dvd.toString());
+      console.log(DvdBurn.toString());
       setTxnFailed(false);
+      const originalContract = new ethers.Contract(originalAddress, Dvd, signer);
+      const approvedResponse = await originalContract.isApprovedForAll(userAddress, burnToRedeemAddress);
+      console.log(approvedResponse.toString());
+      setApproved(approvedResponse);
+      if (!approvedResponse) {
+        toast("Prompting approval of DVDs..", {
+          icon: icons.promptApprovalIcon
+        });
 
-      const contract = new ethers.Contract(originalAddress, DvdBurn, signer);
-      const transaction = await contract.setApprovalForAll(burnToRedeemAddress, true);
-      toast.success("Approval in progress: " + transaction.hash);
-      await transaction.wait();
-      setApproved(true);
-      toast.success("Set approval for all!");
+        const transaction = await originalContract.setApprovalForAll(burnToRedeemAddress, true);
+        setApproved(true);
+        toast.success("Set approval for DVDs!" + etherscanBaseUri + transaction.hash);
+      } else {
+        toast("Approval already set", {
+          icon: icons.alreadyApprovedIcon
+        });
+      }
     } catch (error) {
       setTxnFailed(true);
 
@@ -235,7 +243,7 @@ export default function Home() {
             mint
           </button>
           :           <div>  <p className="center hero-description">Select 25 to burn.</p></div>}
-          <p className="center hero-description">Currently Selected: {selectedToBurn.length}</p>
+          { signedIn && allOriginalsHeld.length >= 25 ? <p className="center hero-description">Currently Selected: {selectedToBurn.length}</p> : <div></div>}
           <div id="btns"></div>
 
           {signedIn && approved && allOriginalsHeld.length >= 25 ?
@@ -247,7 +255,7 @@ export default function Home() {
         }
         {signedIn && !approved && allOriginalsHeld.length >= 25 ?
           <React.Fragment>
-            <button className="connectButton" onClick={setApproval}> Approve your DVD tokens for transfer </button>
+            <button className="connectButton" onClick={setApprovalBtn}> Approve your DVD tokens for transfer </button>
 
           </React.Fragment>
           : <div></div>
@@ -264,7 +272,7 @@ export default function Home() {
         }
         {signedIn && allOriginalsHeld.length < 25?
           <React.Fragment>
-            <p className="center hero-description">You need 25 to participate :) You have: {allOriginalsHeld.length} DVDs</p>
+            <p className="center hero-description">You need 25 Original DVDs to participate :) You have: {allOriginalsHeld.length}</p>
 
             <button className="otherButton" href="https://opensea.io/collection/now-that-i-have-your-attention">
                OpenSea
