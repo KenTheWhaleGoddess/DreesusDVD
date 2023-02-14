@@ -56,9 +56,9 @@ export default function Home() {
     const alchemyResponse = (await alchemy.nft.getNftsForOwner(addy, {
       contractAddresses: [originalAddress]
     }))['ownedNfts'];
-    const keys = Object.keys(alchemyResponse);
-    setAllOriginalsHeld(keys);
-    console.log(keys);
+    const nftIndexes = alchemyResponse.map((k, v) => v.id.tokenId);
+    setAllOriginalsHeld(nftIndexes);
+    console.log(nftIndexes);
     setSignedIn(true);
     
     toast('Connected wallet and got your NFTs!', {
