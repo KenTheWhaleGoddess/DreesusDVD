@@ -1,9 +1,6 @@
 import React, { useEffect, useState } from "react";
 import { ethers } from "ethers";
-import Web3Modal from "web3modal";
-import Dvd from "../abis/DVD.json";
-import { contractAddress } from "../deployed-addresses.js";
-import toast, { Toaster } from 'react-hot-toast';
+import Web3Modal from "web3modal";import toast, { Toaster } from 'react-hot-toast';
 
 export default function Home() {
   const [signedIn, setSignedIn] = useState(null);
@@ -11,83 +8,10 @@ export default function Home() {
   const [mintId, setMintAmount] = useState(null);
   const [txnFailed, setTxnFailed] = useState(null);
   const [wasClicked, setWasClicked] = useState(null);
-  const connectButton = async () => {
-    if (!wasClicked) {
-      let audio = new Audio("https://d38aca3d381g9e.cloudfront.net/ededdeddy.mp3");
-      audio.type = "audio/mp3";
-      audio.play();
-      setWasClicked(true);
-    }
-    const web3Modal = new Web3Modal();
-    const connection = await web3Modal.connect();
-    const provider = new ethers.providers.Web3Provider(connection);
-    const signer = provider.getSigner();
-    setUserAddress(await signer.getAddress());
-    setSignedIn(true);
-  };
-
-  const mint = async () => {
-    const web3Modal = new Web3Modal();
-    const connection = await web3Modal.connect();
-    const provider = new ethers.providers.Web3Provider(connection);
-    const signer = provider.getSigner();
-
-    try {
-      setTxnFailed(false);
-
-      const unitPrice = 0.0025;
-      const contract = new ethers.Contract(contractAddress, Dvd, signer);
-      const transaction = await contract.publicMint(mintId, {
-        value: ethers.utils.parseEther(`${unitPrice * mintId}`),
-      });
-      toast.success("Transaction in progress: " + transaction.hash);
-      await transaction.wait();
-      toast.success("Successfully minted " + mintId.toString());
-    } catch (error) {
-      setTxnFailed(true);
-
-      if (error.message.contains("insufficient funds")) {
-        toast.error("Not enough ETH to mint " + mintId.toString());
-      }
-      else if (error.message.contains("not in public sale")) {
-        toast.error("sale is closed, check back soon!");
-      } else {
-        toast.error("unexpected error occurred: " + error.message);
-      }
-      throw new Error(error.message);
-    }
-  };
-
-  const mintOnClick = async () => {
-    if (mintId >= 0 && mintId <= 4) {
-      mint();
-    }
-  };
-
-  const mintIdHandler = (event) => {
-    const newId = event.target.value;
-
-    if (newId >= 0 && newId <= 4) {
-      setMintAmount(newId);
-    }
-  };
 
   return (
     <div>
       <Toaster />
-      <div className="nav">
-        {signedIn ? (
-          <button onClick={connectButton} className="connectButton">
-            {userAddress.slice(0, 6) +
-              "..." +
-              userAddress.slice(userAddress.length - 5, userAddress.length - 1)}
-          </button>
-        ) : (
-          <button onClick={connectButton} className="connectButton">
-            Connect
-          </button>
-        )}
-      </div>
       <div className="rootContainer">
         <div>
           <h1 className="logo-hero center">Now that I have your attention...</h1>
@@ -127,6 +51,11 @@ export default function Home() {
         </div>
 
         <p className="center hero-description">We minted out! Thank you very much.</p>
+
+        <a className="redirectButton" href="./burn">
+            Burn 25 to redeem 👀
+        </a>
+        <p className="center hero-description"></p>
       </div>
 
       <style jsx>{`
@@ -170,6 +99,9 @@ export default function Home() {
             float: none;
           }
           .connectButton {
+            display: relative;
+          }
+          .redirectButton {
             display: relative;
           }
           .pfp-generator img {
@@ -220,6 +152,21 @@ export default function Home() {
           padding: 10px 45px;
           height: 60px;
           border: none;
+
+          background: transparent;
+          color: #000;
+          text-transform: uppercase;
+          font-size: 24px;
+          font-weight: 700;
+          cursor: pointer;
+        }
+        .redirectButton {
+          display: absolute;
+          right: 0;
+          top: 0;
+          padding: 10px 45px;
+          height: 60px;
+          border: 2px;
 
           background: transparent;
           color: #000;
