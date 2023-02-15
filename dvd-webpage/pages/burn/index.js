@@ -149,16 +149,17 @@ export default function Home() {
     const btns = document.getElementById('btns');
     btns.innerHTML = "";
     for(let i = from; i < min(from + 25, allOriginalsHeld.length); i++) {
-      const btnName = 'button' + i.toString();
+      const btnId = allOriginalsHeld[i];
+      const btnName = 'button' + btnId.toString();
 
       const btn = document.createElement('button');
       btn.id = btnName;
-      if (selectedToBurn.includes(i)) {
+      if (selectedToBurn.includes(btnId)) {
         btn.style.backgroundColor = toggleColors.selected;
       } else {
         btn.style.backgroundColor = toggleColors.unselected;
       }
-      btn.innerHTML = i.toString();
+      btn.innerHTML = btnId.toString();
 
       btn.classList.add('toggleBtn');
       btn.onclick = () => {          
