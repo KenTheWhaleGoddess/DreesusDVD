@@ -56,6 +56,10 @@ export default function Home() {
     const alchemyResponse = (await alchemy.nft.getNftsForOwner(addy, {
       contractAddresses: [originalAddress]
     }))['ownedNfts'];
+    console.log(alchemyResponse.toString());
+    console.log(alchemyResponse.forEach(element => {
+      console.log(element);
+    }));
     const nftIndexes = alchemyResponse.map(v => parseInt(v['tokenId']));
     setAllOriginalsHeld(nftIndexes);
     console.log(nftIndexes);
@@ -65,7 +69,6 @@ export default function Home() {
       icon: icons.successIcon
     });
   };
-
   const mint = async () => {
     const provider = new ethers.providers.Web3Provider(window.ethereum);
     const signer = provider.getSigner();
@@ -90,12 +93,9 @@ export default function Home() {
     const signer = provider.getSigner();
 
     try {
-      console.log(Dvd.toString());
-      console.log(DvdBurn.toString());
       setTxnFailed(false);
       const originalContract = new ethers.Contract(originalAddress, Dvd, signer);
       const approvedResponse = await originalContract.isApprovedForAll(userAddress, burnToRedeemAddress);
-      console.log(approvedResponse.toString());
       setApproved(approvedResponse);
       if (!approvedResponse) {
         toast("Prompting approval of DVDs..", {
@@ -131,6 +131,20 @@ export default function Home() {
     setLoaded(true);
   }
 
+  const toggleElement = (btn) => {
+    const val = parseInt(btn.innerHTML);
+    console.log(val.toString());
+    console.log(selectedToBurn.toString());
+    if (selectedToBurn.includes(val)) {
+      console.log("toggle it off.");
+      btn.style.backgroundColor = toggleColors.unselected;
+      return selectedToBurn.filter(el => el !== val);
+    } else {          
+      console.log("toggle on");
+      btn.style.backgroundColor = toggleColors.selected;
+      return [...selectedToBurn,val];
+    }
+  }
   const loadNftsFrom = (from) => {
     const btns = document.getElementById('btns');
     btns.innerHTML = "";
@@ -138,19 +152,20 @@ export default function Home() {
       const btnName = 'button' + i.toString();
 
       const btn = document.createElement('button');
-      const text = document.createTextNode(i.toString());
       btn.id = btnName;
       if (selectedToBurn.includes(i)) {
         btn.style.backgroundColor = toggleColors.selected;
       } else {
         btn.style.backgroundColor = toggleColors.unselected;
       }
+      btn.innerHTML = i.toString();
+
       btn.classList.add('toggleBtn');
-      btn.onclick = (async () => await toggle(i));
-      btn.appendChild(text);
+      btn.onclick = () => {          
+        setSelectedToBurn(toggleElement(btn).map(x => x));
+      };
       btns.appendChild(btn);
     }
-    
   }
   const paginateLeft = () => {
     if (index >= 25) {
@@ -162,21 +177,6 @@ export default function Home() {
     if (index < ((allOriginalsHeld.length - (allOriginalsHeld.length % 25) - 25))) {
       loadNftsFrom(index + 25);
       setIndex(index + 25);
-
-    }
-  }
-  const toggle = async (btnId) => {
-    const btnName = 'button' + btnId.toString();
-    console.log("toggle : " + btnName);
-    console.log("toggle : " + selectedToBurn.toString());
-    const btn = document.getElementById(btnName);
-    if (selectedToBurn.includes(btnId)) {
-      const indexId = selectedToBurn.indexOf(btnId);
-      setSelectedToBurn(selectedToBurn.filter((x) => x != btnId));
-      btn.style.backgroundColor = toggleColors.unselected;
-    } else {
-      setSelectedToBurn(selectedToBurn => [...selectedToBurn, btnId]);
-      btn.style.backgroundColor = toggleColors.selected;
     }
   }
 
