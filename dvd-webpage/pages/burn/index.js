@@ -56,7 +56,7 @@ export default function Home() {
     const alchemyResponse = (await alchemy.nft.getNftsForOwner(addy, {
       contractAddresses: [originalAddress]
     }))['ownedNfts'];
-    const nftIndexes = alchemyResponse.map((v) => parseInt(v['id']['tokenId'], 16));
+    const nftIndexes = alchemyResponse.map(v => parseInt(v['tokenId']));
     setAllOriginalsHeld(nftIndexes);
     console.log(nftIndexes);
     setSignedIn(true);
