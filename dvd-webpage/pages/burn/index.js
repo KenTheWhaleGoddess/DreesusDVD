@@ -182,7 +182,7 @@ export default function Home() {
     }
   }
   const paginateRight = () => {
-    if (index < ((allOriginalsHeld.length - (allOriginalsHeld.length % 25) - 25))) {
+    if (index < ((allOriginalsHeld.length - 25))) {
       loadNftsFrom(index + 25);
       setIndex(index + 25);
     }
