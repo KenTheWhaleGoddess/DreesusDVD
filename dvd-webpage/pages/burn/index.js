@@ -125,25 +125,29 @@ export default function Home() {
   }
 
   const loadNftsFirst = () => {
-
     setIndex(0);
     loadNftsFrom(0);
     setLoaded(true);
   }
-
   const toggleElement = (btn) => {
     const val = parseInt(btn.innerHTML);
     console.log(val.toString());
     console.log(selectedToBurn.toString());
-    if (selectedToBurn.includes(val)) {
-      console.log("toggle it off.");
-      btn.style.backgroundColor = toggleColors.unselected;
-      return selectedToBurn.filter(el => el !== val);
-    } else {          
-      console.log("toggle on");
-      btn.style.backgroundColor = toggleColors.selected;
-      return [...selectedToBurn,val];
-    }
+    setSelectedToBurn(selectedToBurn =>{
+
+      if (selectedToBurn.includes(val)) {
+        btn.style.backgroundColor = toggleColors.unselected;
+
+        console.log("toggle it off.");
+        return (selectedToBurn.filter(el => el !== val));
+      } else {          
+        btn.style.backgroundColor = toggleColors.selected;
+
+        console.log("toggle on");
+        return ([...selectedToBurn,val]);
+      }
+    });
+
   }
   const loadNftsFrom = (from) => {
     const btns = document.getElementById('btns');
@@ -163,7 +167,7 @@ export default function Home() {
 
       btn.classList.add('toggleBtn');
       btn.onclick = () => {          
-        setSelectedToBurn(toggleElement(btn).map(x => x));
+        toggleElement(btn);
       };
       btns.appendChild(btn);
     }
