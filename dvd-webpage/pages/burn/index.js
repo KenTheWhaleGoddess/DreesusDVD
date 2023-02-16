@@ -132,7 +132,6 @@ export default function Home() {
   const toggleElement = (btn) => {
     const val = parseInt(btn.innerHTML);
     console.log(val.toString());
-    console.log(selectedToBurn.toString());
     setSelectedToBurn(selectedToBurn =>{
 
       if (selectedToBurn.includes(val)) {
