@@ -22,7 +22,8 @@ export default function Home() {
     connectionIcon: '⌛',
     successIcon: '✔️',
     alreadyApprovedIcon: '👍',
-    promptApprovalIcon: '✋'
+    promptApprovalIcon: '✋',
+    txFailedIcon: '❌'
   }
 
   const toggleColors = {
@@ -83,7 +84,9 @@ export default function Home() {
       toast.success("Successfully minted!");
     } catch (error) {
       setTxnFailed(true);
-
+      toast("Transaction failed for unkown reason.", {
+        icon: icons.txFailedIcon
+      });
       throw new Error(error.message);
     }
   };
@@ -112,7 +115,9 @@ export default function Home() {
       }
     } catch (error) {
       setTxnFailed(true);
-
+      toast("Transaction failed for unkown reason.", {
+        icon: icons.txFailedIcon
+      });
       throw new Error(error.message);
     }
   };
@@ -146,7 +151,6 @@ export default function Home() {
         return ([...selectedToBurn,val]);
       }
     });
-
   }
   const loadNftsFrom = (from) => {
     const btns = document.getElementById('btns');
